@@ -1,16 +1,14 @@
-# Paulsen GForms S3 Uploads
+# SMF Gravity Forms S3 Upload (based on Paulsen GForms S3 Uploads)
 
-This plugin moves files submitted through Gravity Forms to S3 after form submission. It then alters the value displayed when viewing entries to show the S3 URL
+This plugin moves files submitted through Gravity Forms to S3 after form submission.  The files can be placed into a specified "folder" path
 
 ## Installation 
 
-1. Define the some constants in wp-config.php:
-
-   `define( 'GFORM_S3_FORM_ID', <Form id> );`
-
-   `define( 'GFORM_S3_FIELD_ID', <field id> );`
+1. Define constants in the plugin file in order to connect to Amazon S3 :
 
    `define( 'GFORM_S3_BUCKET', '<bucket name>' );`
+
+   `define( 'GFORM_S3_PATH_PREFIX', '<folder name with trailing slash or empty for no folder>' );`
 
    `define( 'AWS_ACCESS_KEY_ID', '<aws access key>' );`
 
@@ -18,11 +16,15 @@ This plugin moves files submitted through Gravity Forms to S3 after form submiss
 
 2. Install and activate like a typical WP plugin.
 
+
+## How it works (so far)
+- Automatically gets applied to file upload fields (on all forms).  There is currently no way around this – all files submitted through a Gravity Form go to S3.
+- Supports multiple forms, fields
+- The actual field value is changed to the new network path on S3 (if successful) or the web server location (if upload to S3 failed).
+
 ## To Do
 
-- Support multiple forms and fields
 - Add admin area to select which forms and fields to use
 - Add option to apply to any upload field
 - Integrate with the wp-amazon-web-services plugin
 - Verify that the file was successfully uploaded
-- Modify the actual field value after uploading to S3 rather than using a filter to modify the output
